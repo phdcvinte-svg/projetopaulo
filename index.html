@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projeto Audiovisual — Pacote Mensal</title>
+<style>
+:root{--bg:#f5f4f0;--surface:#fff;--surface2:#eceae4;--text:#111;--muted:#6e6d68;--line:#dedbd3;--accent:#d8ff38;--dark:#10110f;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:50;box-shadow:0 0 12px rgba(216,255,56,.8)}
+.container{width:min(1160px,calc(100% - 40px));margin:auto}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(245,244,240,.82);backdrop-filter:blur(12px);z-index:40;transition:height .4s var(--ease),box-shadow .4s}
+.nav.small{height:56px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.brand{font-weight:800;letter-spacing:-.04em}.nav span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+.hero{padding:96px 0 82px;display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:end}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.hero h1{font-size:clamp(54px,8vw,112px);line-height:.88;letter-spacing:-.075em;margin:0}.hero h1 em{font-style:normal;color:#78a600}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}.hero h1 .w i{display:inline-block;font-style:normal;transform:translateY(110%);animation:up 1s var(--ease) forwards;animation-delay:calc(var(--i)*90ms + 200ms)}
+@keyframes up{to{transform:none}}
+.hero-copy{font-size:17px;line-height:1.6;color:var(--muted);max-width:430px}.meta{display:flex;gap:28px;border-top:1px solid var(--line);padding-top:22px;margin-top:28px}
+.meta b{display:block;font-size:25px}.meta small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+.section{padding:70px 0;border-top:1px solid var(--line);position:relative}
+.section::before{content:"";position:absolute;top:-1px;left:0;height:1px;width:100%;background:var(--text);transform:scaleX(0);transform-origin:0 50%;transition:transform 1.4s var(--ease)}
+.section.in::before{transform:scaleX(1)}
+.section-head{display:flex;justify-content:space-between;gap:30px;align-items:flex-end;margin-bottom:34px}
+.section h2{font-size:clamp(34px,5vw,62px);line-height:.95;letter-spacing:-.06em;margin:0}.section-head p{max-width:410px;color:var(--muted);line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);padding:28px;min-height:205px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .3s,opacity .9s var(--ease)}
+.card:hover{transform:translateY(-8px)!important;box-shadow:0 22px 44px rgba(0,0,0,.09);border-color:#111}
+.card .num{transition:color .3s}.card:hover .num{color:#78a600}
+.num{font-size:12px;color:var(--muted);letter-spacing:.12em}.card h3{font-size:25px;letter-spacing:-.04em;margin:0 0 10px}.card p{color:var(--muted);line-height:1.5;margin:0;font-size:14px}
+.delivery-flow{display:flex;align-items:stretch;gap:8px;overflow-x:auto;padding:4px 0 16px}
+.flow-step{min-width:132px;flex:1;background:var(--surface);border:1px solid var(--line);padding:20px 16px;display:flex;flex-direction:column;gap:9px;transition:transform .4s var(--ease),border-color .3s}
+.flow-step:hover{transform:translateY(-5px);border-color:#111}
+.flow-step span{font-size:11px;color:var(--muted);letter-spacing:.12em}.flow-step b{font-size:16px;letter-spacing:-.02em}.flow-step small{font-size:11px;color:var(--muted);line-height:1.4}.flow-step.final{background:var(--dark);color:#f7f7f1;border-color:var(--dark)}.flow-step.final span,.flow-step.final small{color:#aeb1aa}
+.flow-arrow{display:flex;align-items:center;color:var(--muted);font-size:20px}
+.delivery-note{margin-top:12px;padding:20px;background:var(--surface2);border:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.6}.delivery-note strong{color:var(--text)}
+.timeline{display:grid;grid-template-columns:180px 1fr;border-top:1px solid var(--line)}.row{display:contents}.row>div{padding:24px 0;border-bottom:1px solid var(--line)}.row .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.12em}.row .detail{font-size:17px}.row .detail span{display:block;color:var(--muted);font-size:14px;margin-top:7px}
+.price{background:var(--dark);color:#f7f7f1;padding:52px;border-radius:2px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;overflow:hidden;position:relative}
+.price::after{content:"";position:absolute;right:-120px;top:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(216,255,56,.22),transparent 65%);pointer-events:none;transform:translateY(var(--py,0px))}
+.price .eyebrow{color:#8f928c}.price h2{font-size:clamp(42px,6vw,78px);letter-spacing:-.07em;margin:0}
+.price .value{text-align:right;position:relative;z-index:1}.price .value .parc{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9b9e98;margin-bottom:6px}
+.price .value strong{font-size:58px;letter-spacing:-.06em;color:var(--accent);display:block;line-height:1}
+.price .value .or{display:block;margin-top:14px;font-size:17px;color:#f7f7f1}.price .value .or b{color:var(--accent);font-size:22px;letter-spacing:-.03em}
+.price .value small{display:block;color:#9b9e98;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-top:12px}
+.note{margin-top:14px;padding:18px 20px;background:var(--surface2);color:var(--muted);font-size:13px;line-height:1.5}
+.footer{padding:42px 0 60px;display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
+/* Reveal on scroll */
+.rv{opacity:0;transform:translateY(48px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+.rv.left{transform:translateX(-40px)}.rv.in.left{transform:none}
+.rv.scale{transform:scale(.94) translateY(30px)}.rv.in.scale{transform:none}
+.card.rv.in{transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .3s,opacity 1s var(--ease)}
+[data-par]{will-change:transform}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:64px 0}.grid{grid-template-columns:1fr}.price{grid-template-columns:1fr;padding:32px}.price .value{text-align:left}.price .value strong{font-size:46px}.timeline{grid-template-columns:1fr}.row>div{padding:17px 0}.footer{display:block}.section-head{display:block}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hero h1 .w i{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<main><div class="container">
+<nav class="nav" id="nav"><div class="brand">AUDIOVISUAL / 01</div><span>Proposta de produção mensal</span></nav>
+
+<section class="hero">
+<div data-par="0.06"><div class="eyebrow rv">Projeto demonstrativo · Conteúdo institucional</div>
+<h1><span class="w" style="--i:0"><i>Conteúdo</i></span> <span class="w" style="--i:1"><i>que</i></span> <span class="w" style="--i:2"><i>transforma</i></span> <span class="w" style="--i:3"><i>rotina</i></span> <span class="w" style="--i:4"><i>em</i></span> <span class="w" style="--i:5"><i><em>presença.</em></i></span></h1></div>
+<div data-par="-0.03"><p class="hero-copy rv" style="--d:4">Um pacote audiovisual pensado para produzir um mês inteiro de conteúdo com captação concentrada e uma pós-produção consistente, profissional e pronta para redes sociais.</p>
+<div class="meta rv" style="--d:6"><div><b data-count="13">13</b><small>vídeos</small></div><div><b data-count="6" data-suf="h">6h</b><small>captação</small></div><div><b data-count="1" data-pad="2">01</b><small>mês</small></div></div></div>
+</section>
+
+<section class="section"><div class="section-head"><h2 class="rv">O escopo</h2><p class="rv" style="--d:2">Uma operação simples: gravar tudo em uma diária, organizar o material e transformar a captação em 13 peças finalizadas.</p></div>
+<div class="grid">
+<article class="card rv" style="--d:0"><div class="num">01 / CAPTAÇÃO</div><div><h3>1 diária · 6 horas</h3><p>Gravação concentrada em um único local, utilizando celular e os equipamentos disponibilizados pela empresa. Transporte por minha conta.</p></div></article>
+<article class="card rv" style="--d:1"><div class="num">02 / SÓCIOS</div><div><h3>3 vídeos prioritários</h3><p>Conteúdos dos sócios com montagem institucional, cortes, legendas e acabamento visual coerente.</p></div></article>
+<article class="card rv" style="--d:2"><div class="num">03 / INSTITUCIONAL</div><div><h3>10 vídeos · 30s–1min</h3><p>Conteúdos objetivos para comunicação e presença digital, com edição básica e linguagem de redes sociais.</p></div></article>
+</div></section>
+
+<section class="section"><div class="section-head"><h2 class="rv">Produção</h2><p class="rv" style="--d:2">O fluxo foi pensado para separar captação e pós-produção, permitindo mais foco e consistência em cada etapa.</p></div>
+<div class="timeline">
+<div class="row rv left" style="--d:0"><div class="label">01 · Pré</div><div class="detail">Organização da gravação<span>Captação planejada conforme os roteiros fornecidos pelo cliente.</span></div></div>
+<div class="row rv left" style="--d:1"><div class="label">02 · Captação</div><div class="detail">Até 6 horas em uma única diária<span>Registro dos 13 conteúdos no mesmo local, com prioridade para os vídeos dos sócios. Transporte até o local por minha conta.</span></div></div>
+<div class="row rv left" style="--d:2"><div class="label">03 · Pós</div><div class="detail">Edição e finalização<span>Cortes, montagem, legendas, tratamento básico de imagem e áudio.</span></div></div>
+<div class="row rv left" style="--d:3"><div class="label">04 · Entrega</div><div class="detail">13 vídeos prontos para publicação<span>Formato adequado para redes sociais + uma rodada de ajustes por vídeo.</span></div></div>
+</div></section>
+
+<section class="section"><div class="price rv scale"><div><div class="eyebrow">Investimento mensal</div><h2>Produção audiovisual</h2></div>
+<div class="value"><span class="parc">Parcelado em</span><strong>5x R$399,40</strong><span class="or">ou <b>R$1.997</b> pagamento único</span><small>pacote fechado · 01 mês</small></div></div>
+<div class="note rv" style="--d:2"><strong>Fora do escopo:</strong> vídeos adicionais, nova diária de gravação ou alterações que ultrapassem a rodada prevista serão orçados separadamente. O transporte até o local de gravação está incluso e é por minha conta.</div></section>
+
+<section class="section"><div class="section-head"><h2 class="rv">Fluxo de entrega</h2><p class="rv" style="--d:2">Um processo claro para transformar a captação em vídeos aprovados, finalizados e prontos para publicação.</p></div>
+<div class="delivery-flow">
+<div class="flow-step rv" style="--d:0"><span>01</span><b>Captação</b><small>Até 6h</small></div>
+<div class="flow-arrow rv" style="--d:1">→</div>
+<div class="flow-step rv" style="--d:2"><span>02</span><b>Edição</b><small>Montagem + acabamento</small></div>
+<div class="flow-arrow rv" style="--d:3">→</div>
+<div class="flow-step rv" style="--d:4"><span>03</span><b>Prévia</b><small>Primeira versão</small></div>
+<div class="flow-arrow rv" style="--d:5">→</div>
+<div class="flow-step rv" style="--d:6"><span>04</span><b>Aprovação</b><small>Feedback do cliente</small></div>
+<div class="flow-arrow rv" style="--d:7">→</div>
+<div class="flow-step rv" style="--d:8"><span>05</span><b>Ajustes</b><small>1 rodada por vídeo</small></div>
+<div class="flow-arrow rv" style="--d:9">→</div>
+<div class="flow-step rv" style="--d:10"><span>06</span><b>Finalização</b><small>Exportação</small></div>
+<div class="flow-arrow rv" style="--d:11">→</div>
+<div class="flow-step final rv" style="--d:12"><span>07</span><b>Entrega</b><small>Pronto para publicar</small></div>
+</div>
+<div class="delivery-note rv"><strong>Entrega final:</strong> 13 vídeos em MP4/H.264, formato vertical 9:16 (1080 × 1920), organizados digitalmente e prontos para publicação nas redes sociais. A produção pode ser enviada em lotes para facilitar a aprovação.</div>
+</section>
+
+<section class="section"><div class="section-head"><h2 class="rv">Incluso</h2><p class="rv" style="--d:2">O pacote foi desenhado para ter um limite claro de entrega e facilitar uma possível continuidade mensal.</p></div>
+<div class="grid">
+<article class="card rv" style="--d:0"><div class="num">01</div><div><h3>Captação</h3><p>Até 6 horas de captação em uma única empresa/local.</p></div></article>
+<article class="card rv" style="--d:1"><div class="num">02</div><div><h3>13 entregas</h3><p>3 vídeos dos sócios + 10 vídeos institucionais de 30 segundos a 1 minuto.</p></div></article>
+<article class="card rv" style="--d:2"><div class="num">03</div><div><h3>Pós-produção</h3><p>Edição, montagem, legendas, tratamento básico de imagem e áudio.</p></div></article>
+<article class="card rv" style="--d:0"><div class="num">04</div><div><h3>Social ready</h3><p>Arquivos finalizados em formato adequado para publicação nas redes sociais.</p></div></article>
+<article class="card rv" style="--d:1"><div class="num">05</div><div><h3>1 rodada</h3><p>Uma rodada de ajustes por vídeo, mantendo o fluxo de produção previsível.</p></div></article>
+<article class="card rv" style="--d:2"><div class="num">06</div><div><h3>Transporte</h3><p>Deslocamento até o local da gravação por minha conta, sem custo adicional.</p></div></article>
+</div></section>
+<footer class="footer rv"><div>AUDIOVISUAL / PROJETO 01</div><div>Captação · Edição · Conteúdo institucional</div></footer>
+</div></main>
+<script>
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');if(e.target.classList.contains('section'))e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv,.section').forEach(function(el){io.observe(el)});
+// contadores
+function count(el){var t=+el.dataset.count,s=el.dataset.suf||'',p=+el.dataset.pad||0,st=null;
+function f(ts){st=st||ts;var k=Math.min((ts-st)/1400,1),v=Math.round(t*(1-Math.pow(1-k,3)));el.textContent=(p?String(v).padStart(p,'0'):v)+s;if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!reduce)count(e.target);co.unobserve(e.target)}})},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(function(el){co.observe(el)});
+// scroll: progresso, nav, parallax
+var bar=document.getElementById('progress'),nav=document.getElementById('nav'),par=document.querySelectorAll('[data-par]'),price=document.querySelector('.price'),tick=false;
+function update(){var y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+bar.style.transform='scaleX('+(h>0?y/h:0)+')';nav.classList.toggle('small',y>60);
+if(!reduce){par.forEach(function(el){el.style.transform='translateY('+(y*el.dataset.par)+'px)'});
+if(price){var r=price.getBoundingClientRect();price.style.setProperty('--py',(r.top-innerHeight/2)*.15+'px')}}
+tick=false}
+addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(update)}},{passive:true});update();
+})();
+</script>
+</body></html>
